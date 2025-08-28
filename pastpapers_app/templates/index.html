@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Papers Bank - Computer Science Department</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h1>Past Papers Bank</h1>
+                </div>
+                <p class="subtitle">Computer Science Department</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="welcome-section">
+                <h2>Welcome to the Past Papers Repository</h2>
+                <p>Access previous examination papers organized by subject, term, and year. Click on any subject below to browse available papers.</p>
+            </div>
+
+            {% if subjects_data %}
+                <div class="subjects-container">
+                    {% for item in subjects_data %}
+                        <div class="subject-accordion">
+                            <div class="subject-header" onclick="toggleSubject(this)">
+                                <div class="subject-info">
+                                    <h3>{{ item.subject.name }}</h3>
+                                    <span class="paper-count">
+                                        {% with mid_count=item.papers.Mid|length final_count=item.papers.Final|length %}
+                                            {{ mid_count|add:final_count }} paper{{ mid_count|add:final_count|pluralize }}
+                                        {% endwith %}
+                                    </span>
+                                </div>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            
+                            <div class="subject-content">
+                                <div class="tabs">
+                                    <div class="tab-buttons">
+                                        <button class="tab-button active" onclick="showTab(this, 'mid-{{ forloop.counter }}')">
+                                            <i class="fas fa-clock"></i>
+                                            Mid Term Papers
+                                            <span class="badge">{{ item.papers.Mid|length }}</span>
+                                        </button>
+                                        <button class="tab-button" onclick="showTab(this, 'final-{{ forloop.counter }}')">
+                                            <i class="fas fa-trophy"></i>
+                                            Final Papers
+                                            <span class="badge">{{ item.papers.Final|length }}</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <div id="mid-{{ forloop.counter }}" class="tab-content active">
+                                        {% if item.papers.Mid %}
+                                            {% for year, papers in item.papers.Mid.items %}
+                                                <div class="year-section">
+                                                    <h4 class="year-title">
+                                                        <i class="fas fa-calendar-alt"></i>
+                                                        Year {{ year }}
+                                                    </h4>
+                                                    <div class="papers-grid">
+                                                        {% for paper in papers %}
+                                                            <div class="paper-card">
+                                                                <div class="paper-icon">
+                                                                    {% if paper.format == 'pdf' %}
+                                                                        <i class="fas fa-file-pdf"></i>
+                                                                    {% else %}
+                                                                        <i class="fas fa-file-image"></i>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="paper-info">
+                                                                    <h5>{{ paper.subject.name }} - {{ paper.term }}</h5>
+                                                                    <p class="paper-details">
+                                                                        Year: {{ paper.year }} | 
+                                                                        Format: {{ paper.get_format_display }} | 
+                                                                        Size: {{ paper.get_file_size_display }}
+                                                                    </p>
+                                                                </div>
+                                                                <a href="{% url 'download_paper' paper.id %}" class="download-btn" title="Download Paper">
+                                                                    <i class="fas fa-download"></i>
+                                                                    Download
+                                                                </a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="no-papers">
+                                                <i class="fas fa-folder-open"></i>
+                                                <p>No Mid Term papers available yet.</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div id="final-{{ forloop.counter }}" class="tab-content">
+                                        {% if item.papers.Final %}
+                                            {% for year, papers in item.papers.Final.items %}
+                                                <div class="year-section">
+                                                    <h4 class="year-title">
+                                                        <i class="fas fa-calendar-alt"></i>
+                                                        Year {{ year }}
+                                                    </h4>
+                                                    <div class="papers-grid">
+                                                        {% for paper in papers %}
+                                                            <div class="paper-card">
+                                                                <div class="paper-icon">
+                                                                    {% if paper.format == 'pdf' %}
+                                                                        <i class="fas fa-file-pdf"></i>
+                                                                    {% else %}
+                                                                        <i class="fas fa-file-image"></i>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="paper-info">
+                                                                    <h5>{{ paper.subject.name }} - {{ paper.term }}</h5>
+                                                                    <p class="paper-details">
+                                                                        Year: {{ paper.year }} | 
+                                                                        Format: {{ paper.get_format_display }} | 
+                                                                        Size: {{ paper.get_file_size_display }}
+                                                                    </p>
+                                                                </div>
+                                                                <a href="{% url 'download_paper' paper.id %}" class="download-btn" title="Download Paper">
+                                                                    <i class="fas fa-download"></i>
+                                                                    Download
+                                                                </a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="no-papers">
+                                                <i class="fas fa-folder-open"></i>
+                                                <p>No Final papers available yet.</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-subjects">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>No Subjects Available</h3>
+                    <p>No subjects have been added yet. Please check back later or contact the administrator.</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Past Papers Bank - Computer Science Department. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="/admin/" target="_blank">
+                        <i class="fas fa-cog"></i>
+                        Admin Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
