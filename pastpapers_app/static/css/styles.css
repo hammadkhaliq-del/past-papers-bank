@@ -1,0 +1,475 @@
+/* File: pastpapers_app/static/css/styles.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.header-content {
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    color: #ffd700;
+}
+
+.logo h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Main Content */
+.main {
+    padding: 3rem 0;
+    flex: 1;
+}
+
+.welcome-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.welcome-section p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Subject Accordion */
+.subjects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.subject-accordion {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.subject-accordion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.subject-header {
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.subject-header:hover {
+    background: linear-gradient(135deg, #2980b9, #1f4e79);
+}
+
+.subject-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+}
+
+.paper-count {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.accordion-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.subject-accordion.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.subject-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.subject-accordion.active .subject-content {
+    max-height: 2000px;
+}
+
+/* Tabs */
+.tabs {
+    padding: 2rem;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.tab-button {
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-button.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+.tab-button:hover {
+    color: #2980b9;
+}
+
+.badge {
+    background: #e74c3c;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Year Sections */
+.year-section {
+    margin-bottom: 2rem;
+}
+
+.year-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+/* Papers Grid */
+.papers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1rem;
+}
+
+.paper-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.paper-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: #3498db;
+}
+
+.paper-icon {
+    font-size: 2rem;
+    color: #e74c3c;
+    min-width: 40px;
+}
+
+.paper-icon .fa-file-pdf {
+    color: #e74c3c;
+}
+
+.paper-icon .fa-file-image {
+    color: #f39c12;
+}
+
+.paper-info {
+    flex: 1;
+}
+
+.paper-info h5 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.paper-details {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #229954, #27ae60);
+    transform: scale(1.05);
+    text-decoration: none;
+    color: white;
+}
+
+.download-btn i {
+    font-size: 0.9rem;
+}
+
+/* No Papers/Subjects */
+.no-papers, .no-subjects {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #666;
+}
+
+.no-papers i, .no-subjects i {
+    font-size: 3rem;
+    color: #bdc3c7;
+    margin-bottom: 1rem;
+}
+
+.no-subjects h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+.footer {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .logo h1 {
+        font-size: 2rem;
+    }
+    
+    .logo i {
+        font-size: 2rem;
+    }
+    
+    .welcome-section {
+        padding: 1.5rem;
+    }
+    
+    .welcome-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .subject-header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .subject-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .tabs {
+        padding: 1rem;
+    }
+    
+    .tab-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tab-button {
+        padding: 0.8rem 1rem;
+        justify-content: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .paper-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .paper-card {
+        padding: 1rem;
+    }
+    
+    .subject-header {
+        padding: 1rem;
+    }
+    
+    .welcome-section {
+        padding: 1rem;
+    }
+    
+    .logo {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Smooth Animations */
+.subject-accordion {
+    animation: slideInUp 0.5s ease forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.paper-card {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
